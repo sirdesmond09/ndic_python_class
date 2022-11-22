@@ -129,4 +129,8 @@ import random
 # print(others)
 
 
-print()
+file = open("desmond.txt", "r")
+print(file.read())
+
+file.close()
+

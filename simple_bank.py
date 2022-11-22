@@ -12,7 +12,8 @@ import random
 import time
 from datetime import datetime
 
-data = {}
+with open("database.txt") as file:
+    data = eval(file.read())
 
 ############ FUNCTIONS ###################
 
@@ -148,7 +149,6 @@ while on:
                                 
                                 user_detail['transactions'].append(record)
                                 
-                                
                                 beneficiary["balance"]+= amount
                                 record = {
                                     "amount" : amount,
@@ -195,5 +195,5 @@ while on:
 
 
 
-
-print("\n\n", data)
+with open("database.txt", "w") as file:
+    file.write(str(data))
