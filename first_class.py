@@ -116,9 +116,17 @@ import statistics #import the statistics module
     
 # print(q)
 
-a = 1
-while a <= 10:
-    print(a)
+# a = 1
+# while a <= 10:
+#     print(a)
     
-    a+=1
+#     a+=1
 
+import random
+
+# others = "0" + "".join([str(random.choice(range(10))) for _ in range(9)])
+
+# print(others)
+
+
+print()
