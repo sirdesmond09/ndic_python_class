@@ -103,14 +103,84 @@ while on:
                     print("Deposit successful\n")
                 
                 elif action == "2":
-                    pass
-                
+                    amount = int(input("Amount:\n>"))
+
+                    if amount >= user_detail["balance"]:
+                        print("Sapa dey")
+                    
+                    else:    
+                        user_detail["balance"] -= amount
+                        
+                        record = {
+                            "amount" : amount,
+                            "type" : "debit",
+                            "action" : "withdrawal",
+                            "date" : datetime.now().strftime('%d-%b-%Y, %H:%M:%S'),
+                        }
+                        
+                        user_detail['transactions'].append(record)
+                        
+                        print("Withdrawal successful\n")
+                            
                 elif action == "3":
-                    pass
+                    beneficiary_account = input("Enter recipient account number:\n>")
+                    amount = int(input("Amount\n>"))
+                    
+                    beneficiary =  data.get(beneficiary_account)
+                    
+                    if beneficiary:
+                        
+                        if amount >= user_detail["balance"]:
+                            print("Insufficient funds")
+                        
+                        else:
+                            print(f"Please confirm transfer of ${amount} to {beneficiary['name']}")
+                            confirm = input("yes/no: ").lower()
+                            
+                            if confirm == 'yes':
+                                user_detail["balance"]-= amount
+                                record = {
+                                    "amount" : amount,
+                                    "type" : "debit",
+                                    "action" : f"transfer to {beneficiary['name']}",
+                                    "date" : datetime.now().strftime('%d-%b-%Y, %H:%M:%S'),
+                                }
+                                
+                                user_detail['transactions'].append(record)
+                                
+                                
+                                beneficiary["balance"]+= amount
+                                record = {
+                                    "amount" : amount,
+                                    "type" : "credit",
+                                    "action" : f"transfer from to {user_detail['name']}",
+                                    "date" : datetime.now().strftime('%d-%b-%Y, %H:%M:%S'),
+                                }
+                                
+                                beneficiary['transactions'].append(record)
+                                print("Transfer successful\n")
+                        
+                    else:
+                        print("Invalid recipient account number.")
                 
                 elif action == "4":
-                    pass
-                
+                    records = user_detail['transactions']
+                    
+                    if len(records) == 0:
+                        print("No data to display")
+                        
+                    else:
+                        
+                        for record in records[-5:]:
+                            
+                            print("============================")
+                            print(f"Amount: ${record['amount']}")
+                            print(f"Transaction Type: {record['type'].title()}")
+                            print(f"Action: {record['action'].title()}")
+                            print(f"Date: {record['date']}")
+                            print("============================\n")
+                        print(f"Your balance as at {datetime.now().strftime('%d-%b-%Y, %H:%M:%S')} is ${user_detail['balance']}\n")
+                           
                 elif action == "5":
                     login = False
                     print("Session Ended")
