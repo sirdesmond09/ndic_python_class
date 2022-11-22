@@ -197,3 +197,17 @@ while on:
 
 with open("database.txt", "w") as file:
     file.write(str(data))
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    
+        
+    
+        
