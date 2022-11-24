@@ -1,5 +1,4 @@
-from accounts.models import Address, GuestUser
-from .serializers import AddressSerializer, GuestUserSerializer, LoginSerializer, LogoutSerializer, NewOtpSerializer, OTPVerifySerializer, CustomUserSerializer
+from .serializers import LoginSerializer, LogoutSerializer, NewOtpSerializer, OTPVerifySerializer, CustomUserSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -8,7 +7,6 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAdminUser
 from django.contrib.auth import get_user_model
 from .helpers.generators import generate_password
-from .permissions import IsShippingAdmin
 from rest_framework.exceptions import PermissionDenied, AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
@@ -35,7 +33,7 @@ class CustomUserViewSet(UserViewSet):
 class AdminListCreateView(ListCreateAPIView):
     
     
-    queryset = User.objects.filter(is_deleted=False, is_active=True, role="admin").order_by('-date_added')
+    queryset = User.objects.filter(is_deleted=False, is_active=True, role="admin").order_by('-date_joined')
     serializer_class =  CustomUserSerializer
     authentication_classes([JWTAuthentication])
     permission_classes([IsAdminUser])

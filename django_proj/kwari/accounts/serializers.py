@@ -6,10 +6,10 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from .models import ActivationOtp, Address, GuestUser
+from .models import ActivationOtp
 from .signals import generate_otp, site_name,url
 
-from config import settings
+from kwari import settings
  
 User = get_user_model()
 
